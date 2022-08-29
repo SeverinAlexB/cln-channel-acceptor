@@ -27,7 +27,7 @@ def init(options, configuration, plugin):
     plugin.log("Plugin channelacceptor.py initialized.")
 
 
-@plugin.method("list-channel-acceptor-config")
+@plugin.method("listchannelacceptorconfig")
 def list_channel_acceptor_config(plugin):
     s = 'Public channels: ' + str(acceptor.config.public_config) + '\n'
     s += 'Private channels: ' + str(acceptor.config.public_config)
