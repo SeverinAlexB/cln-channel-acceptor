@@ -16,7 +16,7 @@ acceptor: ChannelAcceptManager
 def init(options, configuration, plugin):
     rpc_url = configuration['lightning-dir'] + '/' + configuration['rpc-file']
     global acceptor
-    acceptor = ChannelAcceptManager(rpc_url)
+    acceptor = ChannelAcceptManager(rpc_url, {})
     plugin.log("Plugin channelacceptor.py initialized: " + os.path.realpath(__file__))
 
 
