@@ -36,15 +36,29 @@ def list_channel_acceptor_config(plugin):
         'public-channels': acceptor.config.public_config,
         'private-channels': acceptor.config.private_config
     }
-    s = json.dumps(config, indent=2)
-    for line in s.split('\n'):
-        plugin.log(line)
+    s = str(config)  #json.dumps(config, indent=2)
+    plugin.log(s)
 
-    s2 = """jolo
-    jobi
-    23
-    """
-    return s2
+    return s
 
+
+@plugin.subscribe("openchannel")
+def on_openchannel(plugin, options):
+    plugin.log("Received openchannel event.")
+    plugin.log(options)
+    return {
+        "result": "reject"
+    }
+
+
+@plugin.subscribe("openchannel2")
+def on_openchannel2(plugin, options):
+    plugin.log("Received openchannel2 event.")
+    plugin.log(options)
+    return {
+        "result": "reject",
+        "error_message": "ChannelAcceptor: Channel rejected"
+    }
 
 plugin.run()
+
