@@ -40,8 +40,11 @@ def list_channel_acceptor_config(plugin):
     for line in s.split('\n'):
         plugin.log(line)
 
-
-    return s
+    s2 = """jolo
+    jobi
+    23
+    """
+    return s2
 
 
 plugin.run()
