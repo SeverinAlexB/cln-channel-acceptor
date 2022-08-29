@@ -36,9 +36,11 @@ def list_channel_acceptor_config(plugin):
         'public-channels': acceptor.config.public_config,
         'private-channels': acceptor.config.private_config
     }
-    s = str(config) # json.dumps(config, indent=2)
+    s = json.dumps(config, indent=2)
+    for line in s.split('\n'):
+        plugin.log(line)
 
-    plugin.log(s)
+
     return s
 
 
