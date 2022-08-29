@@ -1,11 +1,11 @@
 [general]
-min-channel-size = 100
+min-channel-size = -1
 allow-public = true
 allow-tor = false
 
 
 [public_channels]
-min-channel-size = 1000
+min-channel-size = -1
 
 
 [private_channels]
