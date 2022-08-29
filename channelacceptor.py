@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import json
+
 from lightning import Plugin
 import os
 from channel_accept_manager import ChannelAcceptManager
@@ -29,8 +31,12 @@ def init(options, configuration, plugin):
 
 @plugin.method("listchannelacceptorconfig")
 def list_channel_acceptor_config(plugin):
-    s = 'Public channels: ' + str(acceptor.config.public_config) + '\n'
-    s += 'Private channels: ' + str(acceptor.config.public_config)
+    """Lists the configuration for the channel acceptor plugin."""
+    config = {
+        'public-channels': acceptor.config.public_config,
+        'private-channels': acceptor.config.private_config
+    }
+    s = json.dumps(config, indent=2)
 
     plugin.log(s)
     return s
