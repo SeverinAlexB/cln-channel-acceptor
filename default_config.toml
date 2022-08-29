@@ -1,0 +1,13 @@
+[general]
+min-channel-size = 100
+allow-public = true
+allow-tor = false
+
+
+[public_channels]
+min-channel-size = 1000
+
+
+[private_channels]
+allow-public = false
+allow-tor = true

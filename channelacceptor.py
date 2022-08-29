@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from lightning import Plugin
-from lightning import LightningRpc
+import os
+
+from channel_accept_manager import ChannelAcceptManager
 
 ''' Configuration example
 {'lightning-dir': '/home/bitcoin/.lightning/bitcoin', 'rpc-file': 'lightning-rpc', 'startup': True, 'network': 'bitcoin', 'feature_set': {'init': '080269a2', 'node': '800000080269a2', 'channel': '', 'invoice': '02000000024100'}}
@@ -8,15 +10,14 @@ from lightning import LightningRpc
 '''
 
 plugin = Plugin()
-rpc: LightningRpc
+acceptor: ChannelAcceptManager
 
 @plugin.init()
 def init(options, configuration, plugin):
     rpc_url = configuration['lightning-dir'] + '/' + configuration['rpc-file']
-    rpc = LightningRpc(rpc_url)
-
-    plugin.log("Plugin channelacceptor.py initialized")
-    plugin.log('getinfo: ' + str(rpc.getinfo()))
+    global acceptor
+    acceptor = ChannelAcceptManager(rpc_url)
+    plugin.log("Plugin channelacceptor.py initialized: " + os.path.realpath(__file__))
 
 
 
