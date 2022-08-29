@@ -12,7 +12,7 @@ class ChannelAcceptorConfig:
     def load_default_config(self) -> Dict:
         path = os.path.dirname(os.path.realpath(__file__)) + '/default_config.toml'
         with open(path) as file:
-            return toml.loads(file)
+            return toml.loads(file.read())
 
     def merge_configs(self, config: Dict):
         default_config = self.load_default_config()
@@ -31,7 +31,8 @@ class ChannelAcceptorConfig:
     @classmethod
     def load_from_toml(cls, path) -> 'ChannelAcceptorConfig':
         if os.path.exists(path):
-            config = toml.loads(path)
+            with open(path) as file:
+                config = toml.loads(file.read())
         else:
             config = {}
         return ChannelAcceptorConfig(config)
