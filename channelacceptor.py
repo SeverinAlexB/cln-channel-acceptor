@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json
 
-from lightning import Plugin
+from pyln.client import Plugin
 import os
 from channel_accept_manager import ChannelAcceptManager
 from channel_acceptor_config import ChannelAcceptorConfig
@@ -13,8 +13,6 @@ from channel_acceptor_config import ChannelAcceptorConfig
 
 plugin = Plugin()
 acceptor: ChannelAcceptManager
-
-
 
 @plugin.init()
 def init(options, configuration, plugin):

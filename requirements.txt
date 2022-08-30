@@ -1,2 +1,3 @@
 pylightning==0.0.7.3
+pyln-client==0.12.0
 toml==0.10.2
