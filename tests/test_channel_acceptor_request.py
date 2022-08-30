@@ -2,7 +2,7 @@ import unittest
 import os.path
 from channel_accept_manager import ChannelAcceptManager
 from channel_acceptor_config import ChannelAcceptorConfig
-from channel_open_request import OpenAbstractChannelRequestV1, OpenAbstractChannelRequestV2
+from channel_open_request import OpenChannelRequestV1, OpenChannelRequestV2
 
 '''
 Make sure you establish an RPC connection to run the test. 
@@ -26,7 +26,7 @@ class TestChannelAcceptorRequest(unittest.TestCase):
             "max_accepted_htlcs": 30,
             "channel_flags": 1
         }
-        req = OpenAbstractChannelRequestV1.from_openchannel_hook(data)
+        req = OpenChannelRequestV1.from_openchannel_hook(data)
         self.assertEqual(req.id, '03a7d3d1c70b0782ca2640e9db81a820d3f682eff92cb0ee319f3b793a0455f7f4')
         self.assertEqual(req.funding_satoshis, 10000)
         self.assertEqual(req.push_msat, 0)
@@ -63,7 +63,7 @@ class TestChannelAcceptorRequest(unittest.TestCase):
             "lease_blockheight_start": 683990,
             "node_blockheight": 683990
         }
-        req = OpenAbstractChannelRequestV2.from_openchannel2_hook(data)
+        req = OpenChannelRequestV2.from_openchannel2_hook(data)
         self.assertEqual(req.id, '03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f')
         self.assertEqual(req.channel_id, '252d1b0a1e57895e84137f28cf19ab2c35847e284c112fefdecc7afeaa5c1de7')
         self.assertEqual(req.their_funding_msat, 100000000)

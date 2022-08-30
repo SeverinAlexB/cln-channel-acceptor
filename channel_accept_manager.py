@@ -25,7 +25,7 @@ class ChannelAcceptManager:
             return strict_tor_check
 
         graph_node = GraphNode(node_data['nodes'][0])
-        return graph_node.has_ip_address
+        return not graph_node.has_ip_address
 
     def should_accept(self, request: AbstractChannelOpenRequest) -> Tuple[bool, str]:
         """
@@ -35,13 +35,13 @@ class ChannelAcceptManager:
         """
         config = self.config.private_config if request.is_private else self.config.public_config
 
-        if not config['min-channel-size-sat'] < 0 and request.channel_size_sat < config['min-channel-size-sat']:
-            return False, "Channel below " + str(config['min-channel-size-sat']) + "sat."
+        if not config['min_channel_size_sat'] < 0 and request.channel_size_sat < config['min_channel_size_sat']:
+            return False, "Channel below " + str(config['min_channel_size_sat']) + "sat."
 
-        if not config['allow-tor-only-nodes']:
-            is_tor_only = self._is_tor_only_node(request.id, config['strict-tor-only-node-check'])
+        if not config['allow_tor_only_nodes']:
+            is_tor_only = self._is_tor_only_node(request.id, config['strict_tor_only_node_check'])
             if is_tor_only:
-                return False, "Tor only nodes not allowed."
+                return False, "Tor only nodes are not allowed."
 
         return True, "Ok"
 

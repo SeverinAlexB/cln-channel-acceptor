@@ -63,7 +63,7 @@ class AbstractChannelOpenRequest:
         raise NotImplementedError()
 
 
-class OpenAbstractChannelRequestV1(AbstractChannelOpenRequest):
+class OpenChannelRequestV1(AbstractChannelOpenRequest):
     def __init__(self):
         super().__init__()
         self.funding_satoshis: int = None
@@ -80,7 +80,7 @@ class OpenAbstractChannelRequestV1(AbstractChannelOpenRequest):
         return int(str(msat).replace("msat", ""))
 
     @classmethod
-    def from_openchannel_hook(cls, data: any) -> 'OpenAbstractChannelRequestV1':
+    def from_openchannel_hook(cls, data: any) -> 'OpenChannelRequestV1':
         '''
         {
           "id":"03a7d3d1c70b0782ca2640e9db81a820d3f682eff92cb0ee319f3b793a0455f7f4",
@@ -112,7 +112,7 @@ class OpenAbstractChannelRequestV1(AbstractChannelOpenRequest):
         return req
 
 
-class OpenAbstractChannelRequestV2(AbstractChannelOpenRequest):
+class OpenChannelRequestV2(AbstractChannelOpenRequest):
     def __init__(self):
         super().__init__()
         self.channel_id: str = None
@@ -134,7 +134,7 @@ class OpenAbstractChannelRequestV2(AbstractChannelOpenRequest):
 
 
     @classmethod
-    def from_openchannel2_hook(cls, data: any) -> 'OpenAbstractChannelRequestV2':
+    def from_openchannel2_hook(cls, data: any) -> 'OpenChannelRequestV2':
         '''
         {
             "id": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f",

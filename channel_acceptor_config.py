@@ -3,20 +3,20 @@ import os
 import toml
 
 default_config = {
-    'min-channel-size-sat': -1,  # -1 equals not set
-    'allow-tor-only-nodes': True,
-    'strict-tor-only-node-check': False
+    'min_channel_size_sat': -1,  # -1 equals not set
+    'allow_tor_only_nodes': True,
+    'strict_tor_only_node_check': False
 }
 
 
 class ChannelAcceptorConfig:
     def __init__(self, config=None):
-        if config is None:
-            config = {}
-        self.public_config, self.private_config = self.merge_configs(config)
+        self.user_config = {}
+        if config is not None:
+            self.user_config = {}
+        self.public_config, self.private_config = self.merge_configs(self.user_config)
 
     def merge_configs(self, config: Dict):
-
         user_general = config.get('general', {})
         user_public = config.get('public_channels', {})
         user_private = config.get('private_channels', {})

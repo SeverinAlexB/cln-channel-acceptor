@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 '''
 {
@@ -29,9 +29,9 @@ from typing import List
 
 class GraphNodeAddress:
     def __init__(self, data):
-        self.type: str = data.type
-        self.address: str = data.address
-        self.port: int = data.port
+        self.type: str = data['type']
+        self.address: str = data['address']
+        self.port: int = data['port']
 
     @property
     def is_ip(self):
@@ -39,12 +39,12 @@ class GraphNodeAddress:
 
 
 class GraphNode:
-    def __init__(self, data):
-        self.node_id: str = data.nodeid
-        self.alias: str = data.alias
+    def __init__(self, data: Dict):
+        self.node_id: str = data['nodeid']
+        self.alias: str = data['alias']
         self.addresses: List[GraphNodeAddress] = []
-        if data.addresses:
-            for address in data.addresses:
+        if 'addresses' in data:
+            for address in data['addresses']:
                 self.addresses.append(GraphNodeAddress(address))
 
     @property

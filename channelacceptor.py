@@ -5,7 +5,7 @@ from pyln.client import Plugin
 import os
 from channel_accept_manager import ChannelAcceptManager
 from channel_acceptor_config import ChannelAcceptorConfig
-from channel_open_request import OpenAbstractChannelRequestV1, OpenAbstractChannelRequestV2
+from channel_open_request import OpenChannelRequestV1, OpenChannelRequestV2
 
 ''' Configuration example
 {'lightning-dir': '/home/bitcoin/.lightning/bitcoin', 'rpc-file': 'lightning-rpc', 'startup': True, 'network': 'bitcoin', 'feature_set': {'init': '080269a2', 'node': '800000080269a2', 'channel': '', 'invoice': '02000000024100'}}
@@ -14,6 +14,7 @@ from channel_open_request import OpenAbstractChannelRequestV1, OpenAbstractChann
 
 plugin = Plugin()
 acceptor: ChannelAcceptManager
+DEV_MODE = False  # Rejects all channels if set to true
 
 @plugin.init()
 def init(options, configuration, plugin):
@@ -21,6 +22,9 @@ def init(options, configuration, plugin):
     if os.path.exists(config_toml_path):
         plugin.log('Load config from ' + config_toml_path)
     config = ChannelAcceptorConfig.load_from_toml(config_toml_path)
+
+    global DEV_MODE
+    DEV_MODE = config.user_config.get('general', {}).get('dev_mode', False)
 
     rpc_url = configuration['lightning-dir'] + '/' + configuration['rpc-file']
     global acceptor
@@ -47,12 +51,23 @@ def on_openchannel(plugin, openchannel, **kwargs):
     plugin.log("Received openchannel event.")
     plugin.log(str(openchannel))
 
-    request = OpenAbstractChannelRequestV1.from_openchannel_hook(openchannel)
+    request = OpenChannelRequestV1.from_openchannel_hook(openchannel)
     should_accept, reason = acceptor.should_accept(request)
     plugin.log(f"Should accept: {should_accept}, reason: {reason}")
+
+    if DEV_MODE:
+        return {
+            "result": "reject"
+        }
+
+    if should_accept:
+        return {
+            "result": "continue"
+        }
+
     return {
-        "result": "reject"
-    }
+            "result": "reject"
+        }
 
 
 @plugin.hook("openchannel2")
@@ -60,13 +75,24 @@ def on_openchannel2(plugin, openchannel2, **kwargs):
     plugin.log("Received openchannel2 event.")
     plugin.log(str(openchannel2))
 
-    request = OpenAbstractChannelRequestV2.from_openchannel2_hook(openchannel2)
+    request = OpenChannelRequestV2.from_openchannel2_hook(openchannel2)
     should_accept, reason = acceptor.should_accept(request)
     plugin.log(f"Should accept: {should_accept}, reason: {reason}")
 
+    if DEV_MODE:
+        return {
+            "result": "reject",
+            "error_message": "ChannelAcceptor DEV_MODE. Reject all channels."
+        }
+
+    if should_accept:
+        return {
+            "result": "continue",
+        }
+
     return {
         "result": "reject",
-        "error_message": "ChannelAcceptor: Channel rejected."
+        "error_message": reason
     }
 
 
