@@ -19,8 +19,9 @@ DEV_MODE = False  # Rejects all channels if set to true
 @plugin.init()
 def init(options, configuration, plugin):
     config_toml_path = configuration['lightning-dir'] + '/channel_acceptor.toml'
-    if os.path.exists(config_toml_path):
-        plugin.log('Load config from ' + config_toml_path)
+    plugin.log('Load config from ' + config_toml_path)
+    if not os.path.exists(config_toml_path):
+        plugin.log('- Config file not found.')
     config = ChannelAcceptorConfig.load_from_toml(config_toml_path)
 
     global DEV_MODE
