@@ -34,7 +34,8 @@ def list_channel_acceptor_config(plugin):
         'public-channels': acceptor.config.public_config,
         'private-channels': acceptor.config.private_config
     }
-    s = str(config)  #json.dumps(config, indent=2)
+    s = json.dumps(config, indent=2)
+    s = s.replace('\n', '\\n')
     plugin.log(s)
 
     return s
@@ -43,7 +44,7 @@ def list_channel_acceptor_config(plugin):
 @plugin.hook("openchannel")
 def on_openchannel(plugin, **kwargs):
     plugin.log("Received openchannel event.")
-    plugin.log(kwargs)
+    plugin.log(str(kwargs))
     return {
         "result": "reject"
     }
@@ -52,7 +53,7 @@ def on_openchannel(plugin, **kwargs):
 @plugin.hook("openchannel2")
 def on_openchannel2(plugin, **kwargs):
     plugin.log("Received openchannel2 event.")
-    plugin.log(kwargs)
+    plugin.log(str(kwargs))
     return {
         "result": "reject",
         "error_message": "ChannelAcceptor: Channel rejected"
