@@ -1,11 +1,11 @@
 [general]
-min-channel-size-sat = -1
-allow-tor-only-nodes = false
+min_channel_size_sat = -1
+allow_tor_only_nodes = false
 
 
 [public_channels]
-min-channel-size-sat = -1
-strict-tor-only-node-check = true
+min_channel_size_sat = -1
+strict_tor_only_node_check = true
 
 [private_channels]
-allow-tor-only-nodes = true
+allow_tor_only_nodes = true
