@@ -59,6 +59,7 @@ def on_openchannel(plugin, openchannel, **kwargs):
     plugin.log(f"Should accept: {should_accept}, reason: {reason}")
 
     if DEV_MODE:
+        plugin.log("Reject channel because of DEV_MODE.")
         return {
             "result": "reject"
         }
@@ -83,6 +84,7 @@ def on_openchannel2(plugin, openchannel2, **kwargs):
     plugin.log(f"Should accept: {should_accept}, reason: {reason}")
 
     if DEV_MODE:
+        plugin.log("Reject channel because of DEV_MODE.")
         return {
             "result": "reject",
             "error_message": "ChannelAcceptor DEV_MODE. Reject all channels."
