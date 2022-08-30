@@ -5,6 +5,7 @@ from pyln.client import Plugin
 import os
 from channel_accept_manager import ChannelAcceptManager
 from channel_acceptor_config import ChannelAcceptorConfig
+from channel_open_request import OpenAbstractChannelRequestV1, OpenAbstractChannelRequestV2
 
 ''' Configuration example
 {'lightning-dir': '/home/bitcoin/.lightning/bitcoin', 'rpc-file': 'lightning-rpc', 'startup': True, 'network': 'bitcoin', 'feature_set': {'init': '080269a2', 'node': '800000080269a2', 'channel': '', 'invoice': '02000000024100'}}
@@ -45,6 +46,10 @@ def list_channel_acceptor_config(plugin):
 def on_openchannel(plugin, openchannel, **kwargs):
     plugin.log("Received openchannel event.")
     plugin.log(str(openchannel))
+
+    request = OpenAbstractChannelRequestV1.from_openchannel_hook(openchannel)
+    should_accept, reason = acceptor.should_accept(request)
+    plugin.log(f"Should accept: {should_accept}, reason: {reason}")
     return {
         "result": "reject"
     }
@@ -54,6 +59,11 @@ def on_openchannel(plugin, openchannel, **kwargs):
 def on_openchannel2(plugin, openchannel2, **kwargs):
     plugin.log("Received openchannel2 event.")
     plugin.log(str(openchannel2))
+
+    request = OpenAbstractChannelRequestV2.from_openchannel2_hook(openchannel2)
+    should_accept, reason = acceptor.should_accept(request)
+    plugin.log(f"Should accept: {should_accept}, reason: {reason}")
+
     return {
         "result": "reject",
         "error_message": "ChannelAcceptor: Channel rejected."

@@ -2,6 +2,12 @@ from typing import Dict
 import os
 import toml
 
+default_config = {
+    'min-channel-size-sat': -1,  # -1 equals not set
+    'allow-tor-only-nodes': True,
+    'strict-tor-only-node-check': False
+}
+
 
 class ChannelAcceptorConfig:
     def __init__(self, config=None):
@@ -9,23 +15,14 @@ class ChannelAcceptorConfig:
             config = {}
         self.public_config, self.private_config = self.merge_configs(config)
 
-    def load_default_config(self) -> Dict:
-        path = os.path.dirname(os.path.realpath(__file__)) + '/default_config.toml'
-        with open(path) as file:
-            return toml.loads(file.read())
-
     def merge_configs(self, config: Dict):
-        default_config = self.load_default_config()
+
         user_general = config.get('general', {})
         user_public = config.get('public_channels', {})
         user_private = config.get('private_channels', {})
 
-        default_general = default_config.get('general', {})
-        default_public = default_config.get('public_channels', {})
-        default_private = default_config.get('private_channels', {})
-
-        public_config = {**default_general, **default_public, **user_general, **user_public}
-        private_config = {**default_general, **default_private, **user_general, **user_private}
+        public_config = {**default_config, **user_general, **user_public}
+        private_config = {**default_config, **user_general, **user_private}
         return public_config, private_config
 
     @classmethod
