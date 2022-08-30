@@ -43,7 +43,7 @@ def list_channel_acceptor_config(plugin):
         'private-channels': acceptor.config.private_config
     }
     s = json.dumps(config, indent=2)
-    s = s.replace('\n', '\\n')
+    s = s.encode('string_escape')
     plugin.log(s)
 
     return s
