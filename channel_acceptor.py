@@ -42,7 +42,7 @@ def list_channel_acceptor_config(plugin):
         'public-channels': acceptor.config.public_config,
         'private-channels': acceptor.config.private_config
     }
-    s = str(json)  # json.dumps(config, indent=2)
+    s = str(config)  # json.dumps(config, indent=2)
 
     plugin.log(s)
 
