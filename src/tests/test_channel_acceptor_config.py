@@ -1,5 +1,5 @@
 import unittest
-from channel_acceptor_config import ChannelAcceptorConfig
+from src.channel_acceptor_config import ChannelAcceptorConfig
 
 '''
 Make sure you establish an RPC connection to run the test. 

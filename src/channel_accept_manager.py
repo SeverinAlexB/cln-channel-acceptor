@@ -1,10 +1,10 @@
-from typing import Dict, Union, Tuple
+from typing import Tuple
 
 from lightning import LightningRpc
 
-from channel_acceptor_config import ChannelAcceptorConfig
-from channel_open_request import AbstractChannelOpenRequest
-from graph_node import GraphNode
+from .channel_acceptor_config import ChannelAcceptorConfig
+from .channel_open_request import AbstractChannelOpenRequest
+from .graph_node import GraphNode
 
 
 class ChannelAcceptManager:

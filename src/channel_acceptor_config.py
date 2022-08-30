@@ -13,7 +13,7 @@ class ChannelAcceptorConfig:
     def __init__(self, config=None):
         self.user_config = {}
         if config is not None:
-            self.user_config = {}
+            self.user_config = config
         self.public_config, self.private_config = self.merge_configs(self.user_config)
 
     def merge_configs(self, config: Dict):

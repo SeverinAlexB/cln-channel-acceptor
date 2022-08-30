@@ -1,8 +1,5 @@
 import unittest
-import os.path
-from channel_accept_manager import ChannelAcceptManager
-from channel_acceptor_config import ChannelAcceptorConfig
-from channel_open_request import OpenChannelRequestV1, OpenChannelRequestV2
+from src.channel_open_request import OpenChannelRequestV1, OpenChannelRequestV2
 
 '''
 Make sure you establish an RPC connection to run the test. 
