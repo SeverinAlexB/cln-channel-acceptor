@@ -13,13 +13,15 @@ git clone https://github.com/SeverinAlexB/cln-channel-acceptor
 cd cln-channel-acceptor
 pip3 install -r requirements.txt
 cd ~/.lightning/plugins        # Create the plugin folder if it doesn't exist yet.
-ln -a %PathToClonedGit%/channel_acceptor.py 
+ln -s %PathToClonedGit%/channel_acceptor.py channel_acceptor.py 
 ```
+
+Restart your lightning node to start the plugin or reload the settings.
 
 ### Configure
 
-The acceptor can be configured with a file in  `.lightning/channel_acceptor.toml`. A sample configuration that prevents
-public channels from tor-only nodes, looks like this:
+The acceptor can be configured with a configuration file `.lightning/channel_acceptor.toml`.
+A sample configuration is given here:
 
 ```toml
 [general]
@@ -43,13 +45,13 @@ allow_tor_only_nodes = true         # Allow private channels from tor-only nodes
 
 **Settings**
 
-- `min_channel_size_sat` Default: -1. Minimal channel size in satoshi. -1 means the settings is not applied.
+- `min_channel_size_sat` Default: -1. Minimal channel size in satoshi. -1 means the setting is not applied.
 - `allow_tor_only_nodes` Default: true. A tor-only node only has Tor addresses and no IP addresses announced. If false
 prevents tor-only nodes to establish a channel.
 - `strict_tor_only_node_check` Default: false. The acceptor looks up the node address in the graph. If the node can't 
-be found and this setting is set to true then it will reject the node.
+be found it and therefore the addresses can't be determined, it rejects the node.
 - `dev_mode` Default: false. In general section only. Rejects all incoming channels. Logs the result of the acceptor in
-to the logs though.
+to logs.
 
 
 ## Development
