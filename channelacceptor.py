@@ -42,21 +42,21 @@ def list_channel_acceptor_config(plugin):
 
 
 @plugin.hook("openchannel")
-def on_openchannel(plugin, **kwargs):
+def on_openchannel(plugin, openchannel, **kwargs):
     plugin.log("Received openchannel event.")
-    plugin.log(str(kwargs))
+    plugin.log(str(openchannel))
     return {
         "result": "reject"
     }
 
 
 @plugin.hook("openchannel2")
-def on_openchannel2(plugin, **kwargs):
+def on_openchannel2(plugin, openchannel2, **kwargs):
     plugin.log("Received openchannel2 event.")
-    plugin.log(str(kwargs))
+    plugin.log(str(openchannel2))
     return {
         "result": "reject",
-        "error_message": "ChannelAcceptor: Channel rejected"
+        "error_message": "ChannelAcceptor: Channel rejected."
     }
 
 
