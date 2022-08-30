@@ -1,6 +1,5 @@
 [general]
 min-channel-size = -1
-allow-public = true
 allow-tor = false
 
 
@@ -9,5 +8,4 @@ min-channel-size = -1
 
 
 [private_channels]
-allow-public = false
 allow-tor = true
