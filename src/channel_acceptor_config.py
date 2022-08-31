@@ -14,9 +14,9 @@ class ChannelAcceptorConfig:
         self.user_config = {}
         if config is not None:
             self.user_config = config
-        self.public_config, self.private_config = self.merge_configs(self.user_config)
+        self.public_config, self.private_config = self._merge_config_with_default(self.user_config)
 
-    def merge_configs(self, config: Dict):
+    def _merge_config_with_default(self, config: Dict):
         user_general = config.get('general', {})
         user_public = config.get('public_channels', {})
         user_private = config.get('private_channels', {})
