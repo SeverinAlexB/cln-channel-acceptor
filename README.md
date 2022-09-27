@@ -49,7 +49,7 @@ allow_tor_only_nodes = true         # Allow private channels from tor-only nodes
 - `allow_tor_only_nodes` Default: true. A tor-only node only has Tor addresses and no IP addresses announced. If false
 prevents tor-only nodes to establish a channel.
 - `strict_tor_only_node_check` Default: false. The acceptor looks up the node address in the graph. If the node can't 
-be found it and therefore the addresses can't be determined, it rejects the node.
+be found and therefore the addresses can't be determined, it rejects the node.
 - `dev_mode` Default: false. In general section only. Rejects all incoming channels. Logs the result of the acceptor in
 to logs.
 
