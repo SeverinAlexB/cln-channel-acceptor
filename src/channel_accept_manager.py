@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from lightning import LightningRpc
+from pyln.client import LightningRpc
 
 from .channel_acceptor_config import ChannelAcceptorConfig
 from .channel_open_request import AbstractChannelOpenRequest
