@@ -8,8 +8,9 @@ from src.channel_acceptor_config import ChannelAcceptorConfig
 from src.channel_open_request import OpenChannelRequestV1, OpenChannelRequestV2
 
 ''' Configuration example
-{'lightning-dir': '/home/bitcoin/.lightning/bitcoin', 'rpc-file': 'lightning-rpc', 'startup': True, 'network': 'bitcoin', 'feature_set': {'init': '080269a2', 'node': '800000080269a2', 'channel': '', 'invoice': '02000000024100'}}
-2022-08-29T14:18:00.789Z INFO    lightningd: Peer says it sees our address as: 159.69.208.81:36252
+{'lightning-dir': '/home/bitcoin/.lightning/bitcoin', 'rpc-file': 'lightning-rpc', 'startup': True, 
+'network': 'bitcoin', 'feature_set': {'init': '080269a2', 'node': '800000080269a2', 'channel': '', 
+'invoice': '02000000024100'}}
 '''
 
 plugin = Plugin()
