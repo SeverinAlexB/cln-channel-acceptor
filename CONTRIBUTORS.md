@@ -2,7 +2,7 @@
 
 ## Release new version
 
-1. Bump version in `src/version.py` in `x.x.x` format.
+1. Bump version in `__version__.py` in `x.x.x` format.
 2. Commit git with message `Bump version to vx.x.x`.
 3. Tag commit with
 ```bash

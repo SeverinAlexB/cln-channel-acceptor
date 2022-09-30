@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=$(python -c "from src.version import version; print(version)")
+version=$(python -c "from __version__ import version; print(version)")
 
 echo Create release for version $version
 rm -rf release
