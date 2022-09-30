@@ -20,27 +20,27 @@ Restart your lightning node to start the plugin or reload the settings.
 
 ### Configure
 
-The acceptor can be configured with a configuration file `.lightning/channel_acceptor.toml`.
+The acceptor can be configured with a configuration file `.lightning/channel_acceptor.yaml`.
 A sample configuration is given here:
 
-```toml
-[general]
-min_channel_size_sat = 100000       # Every channel opened needs to be at least 100,000sat
+```yaml
+general:
+  min_channel_size_sat: 100000       # Every channel opened needs to be at least 100,000sat
 
-[public_channels]
-allow_tor_only_nodes = false        # Do not allow tor-only nodes to open public channels.
-min_channel_size_sat = 5000000      # Every public channel needs to be at least 5M sat.
+public_channels:
+  allow_tor_only_nodes: false        # Do not allow tor-only nodes to open public channels.
+  min_channel_size_sat: 5000000      # Every public channel needs to be at least 5M sat.
 
 
-[private_channels]
-allow_tor_only_nodes = true         # Allow private channels from tor-only nodes.
+private_channels:
+  allow_tor_only_nodes: true         # Allow private channels from tor-only nodes.
 ```
 
 **Sections**
 
-- `[general]` Applies to private and public channels.
-- `[public_channels]` Applies to public channels only. Overrides the general settings.
-- `[private_channels]` Applies to private channels only. Overrides the general settings.
+- `general` Applies to private and public channels.
+- `public_channels` Applies to public channels only. Overrides the general settings.
+- `private_channels` Applies to private channels only. Overrides the general settings.
 
 
 **Settings**

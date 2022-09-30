@@ -1,6 +1,6 @@
 from typing import Dict
 import os
-import toml
+import yaml
 
 default_config = {
     'min_channel_size_sat': -1,  # -1 equals not set
@@ -26,10 +26,10 @@ class ChannelAcceptorConfig:
         return public_config, private_config
 
     @classmethod
-    def load_from_toml(cls, path) -> 'ChannelAcceptorConfig':
+    def load_from_yaml(cls, path) -> 'ChannelAcceptorConfig':
         if os.path.exists(path):
             with open(path) as file:
-                config = toml.loads(file.read())
+                config = yaml.safe_load(file.read())
         else:
             config = {}
         return ChannelAcceptorConfig(config)
